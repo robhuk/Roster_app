@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#211d20">
+<meta name="description" content="Roster Manager — XC-inspired personal roster planner">
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="icon" href="./icons/icon-192.png">
+<link rel="apple-touch-icon" href="./icons/icon-192.png">
+<title>Roster Manager</title>
+<link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+<header class="top">
+  <div class="brand"><img src="./icons/icon-192.png" alt="" class="brand-icon"><div><h1>Roster Manager</h1><p>XC roster planner</p></div></div>
+  <button id="settingsBtn" class="icon-button" aria-label="Roster settings">⚙</button>
+</header>
+<main>
+  <aside class="warning"><strong>⚠ Important reminder</strong><br>Make sure to check for engineering or other short-term alterations.</aside>
+  <section class="lookup card">
+    <label for="lookupDate">Look up a date</label>
+    <div class="lookup-row"><input type="date" id="lookupDate"><button id="lookupBtn" class="primary">Find shift</button></div>
+    <div id="lookupResult" class="lookup-result" aria-live="polite">Choose a date to see your expected shift.</div>
+  </section>
+  <section class="week-section">
+    <div class="section-heading"><div><p class="eyebrow">YOUR ROSTER</p><h2>This week</h2></div><span id="thisWeekRange" class="range"></span></div>
+    <div id="thisWeek" class="days-grid"></div>
+  </section>
+  <section class="week-section">
+    <div class="section-heading"><div><p class="eyebrow">COMING UP</p><h2>Next week</h2></div><span id="nextWeekRange" class="range"></span></div>
+    <div id="nextWeek" class="days-grid"></div>
+  </section>
+  <section class="card legend-card">
+    <h3>Shift key</h3>
+    <div class="legend"><span><i class="dot red"></i> Working shift</span><span><i class="dot green"></i> Day off</span><span><i class="dot orange"></i> Other shift / leave</span></div>
+  </section>
+  <section class="card actions">
+    <h3>Roster tools</h3>
+    <div class="action-grid">
+      <button id="settingsShortcut">⚙ Configure roster</button>
+      <button id="calendarBtn">▦ Export calendar (.ics)</button>
+      <button id="emailBtn">✉ Email roster</button>
+    </div>
+  </section>
+  <p id="status" class="status" role="status"></p>
+</main>
+<dialog id="settingsDialog">
+  <form method="dialog" id="settingsForm">
+    <div class="dialog-head"><div><p class="eyebrow">SETUP</p><h2>Roster settings</h2></div><button class="icon-button" value="cancel" aria-label="Close">✕</button></div>
+    <label for="rosterName">Roster name</label><input id="rosterName" placeholder="e.g. Newcastle TM roster">
+    <label for="weekLine">Week line you start on</label><input id="weekLine" type="number" min="1" value="1" required>
+    <label for="startDate">Roster start date (Sunday-start week)</label><input id="startDate" type="date" required>
+    <label for="cycleLength">Number of week lines in rotation</label><input id="cycleLength" type="number" min="1" value="1" required>
+    <label for="pdfFile">Import rota PDF (optional)</label><input id="pdfFile" type="file" accept="application/pdf">
+    <p class="hint">PDF text extraction uses PDF.js from a CDN and needs an internet connection. Always verify the imported lines against the original rota.</p>
+    <label for="rosterText">Roster lines / extracted PDF text</label>
+    <textarea id="rosterText" rows="7" placeholder="Enter one week line per row, with 7 daily entries in Sunday-to-Saturday order. Example: RD, A/R, 0700, 0730, RD, AL, RD"></textarea>
+    <p class="hint">Use commas between the seven daily entries. For reliable results, check and edit the text after importing.</p>
+    <div class="dialog-actions"><button value="cancel" class="secondary">Cancel</button><button id="saveSettings" value="save" class="primary">Save roster</button></div>
+  </form>
+</dialog>
+<script src="./app.js"></script>
+</body>
+</html>
